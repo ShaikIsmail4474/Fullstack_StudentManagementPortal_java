@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin login</title>
+
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .login-container {
+            background: #fff;
+            border-radius: 10px;
+            width: 300px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            animation: fadeInText 1s ease-in-out;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #error-message {
+            text-align: center;
+            color: red;
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+            animation: showErrorMessage 0.5s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes showErrorMessage {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="error-message">Invalid credentials</p>
+    </div>
+
+    <script>
+     // Function to handle login
+function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Dummy credentials (Replace with real authentication)
+    if (username === "admin" && password === "1234@sk") {
+        localStorage.setItem("loggedIn", "true"); // Store login state
+        window.location.href = "index.html"; // Redirect to the main page
+    } else {
+        document.getElementById("error-message").style.display = "block";
+    }
+}   
+    </script>
+</body>
+</html>

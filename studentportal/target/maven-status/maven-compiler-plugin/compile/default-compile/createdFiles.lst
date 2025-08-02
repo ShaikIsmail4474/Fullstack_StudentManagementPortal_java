@@ -1,0 +1,5 @@
+com\studentportal\studentportal\Entity\Student.class
+com\studentportal\studentportal\Repository\StudentRepository.class
+com\studentportal\studentportal\Controller\StudentController.class
+com\studentportal\studentportal\StudentportalApplication.class
+com\studentportal\studentportal\Service\StudentService.class

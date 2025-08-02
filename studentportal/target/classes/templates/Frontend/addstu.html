@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add_Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.5s ease-in-out;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+        }
+        button {
+            background: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .hidden {
+            transform: translateX(-100%);
+            position: absolute;
+            width: 100%;
+            top: 0;
+        }
+        .visible {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the ParentPing <br> Admin Page</h1>
+        <p>An Interactive Full-Stack Web Development Project</p>
+        <div class="header-buttons">
+            <a href="home.html"><button class="header-button">Home</button></a>
+            <a href="index.html"><button class="header-button">Refresh</button></a>
+            <!--<a href="https://1drv.ms/w/s!Appmr_udzsjjdWAF1XDZgWBBP2w?e=Me4Iu1"><button class="header-button">Documentation</button></a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=appapuramfiroz@gmail.com"><button class="header-button">Contact me</button></a>-->
+
+
+        </div>
+    </header>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div class="container">
+        <h3 id="formTitle">Add Student</h3>
+        
+        <!-- Add Student Form -->
+        <form id="addStudentForm" class="visible">
+            <input type="text" id="name" placeholder="Enter Name" required>
+            <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
+            <input type="text" id="contactNumber" placeholder="Enter Contact Number" required>
+            <input type="text" id="branch" placeholder="Enter Branch" required>
+            <input type="text" id="section" placeholder="Enter Section" required>
+            <input type="number" id="year" placeholder="Enter Year" required>
+            <a href="index.html"><button type="submit">Add Student</button></a>
+        </form>
+    </div>
+
+    <script>
+        addStudentForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const studentData = {
+        name: document.querySelector('#name').value.trim(),
+        rollNumber: document.querySelector('#rollNumber').value.trim(),
+        contactNumber: document.querySelector('#contactNumber').value.trim(),
+        branch: document.querySelector('#branch').value.trim(),
+        section: document.querySelector('#section').value.trim(),
+        year: parseInt(document.querySelector('#year').value.trim(), 10)
+    };
+
+    // Validate required fields before sending request
+    if (!studentData.name || !studentData.rollNumber || !studentData.contactNumber || 
+        !studentData.branch || !studentData.section || isNaN(studentData.year)) {
+        alert('Please fill in all fields correctly.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/api/students/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(studentData)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text(); // Get error details
+            throw new Error(`HTTP Error! Status: ${response.status} - ${errorText}`);
+        }
+
+        const result = await response.json();
+        alert('Student added successfully!');
+        addStudentForm.reset();
+        fetchStudents(); // Refresh student list
+    } catch (error) {
+        console.error('Error adding student:', error);
+        //alert(`Failed to add student: ${error.message}`);
+    }
+});
+
+    </script>
+
+</body>
+</html>
